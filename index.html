@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>testwifimg2 ($testwifimg2) — a token on TON, launched on Stonks</title>
+  <meta name="description" content="testwifimg2 ($testwifimg2) is a token on the TON blockchain, launched on Stonks. Learn what it is, how to buy it, and where to find the official links." />
+  <meta property="og:title" content="testwifimg2 ($testwifimg2) on TON" />
+  <meta property="og:description" content="testwifimg — a token on the TON blockchain, launched on Stonks." />
+  <meta property="og:image" content="https://img.stonks.cash/e26cb8d4-2804-4537-9233-ee0ed8d81a12.png" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="https://img.stonks.cash/e26cb8d4-2804-4537-9233-ee0ed8d81a12.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ------------------------------------------------------------------
+       Design tokens — crimson & charcoal on newsprint grey
+    ------------------------------------------------------------------ */
+    :root {
+      --crimson: #a3232b;
+      --crimson-deep: #7d1a21;
+      --crimson-soft: #c9464d;
+      --charcoal: #24242a;
+      --charcoal-deep: #17171b;
+      --ink: #1c1c1f;
+      --newsprint: #e6e2d9;
+      --newsprint-dark: #d3cec3;
+      --paper: #f2efe8;
+      --moss: #6f7a5c;
+      --muted: #6b6860;
+
+      --slab: "Zilla Slab", "Rockwell", Georgia, serif;
+      --grotesk: "Inter", "Helvetica Neue", Arial, sans-serif;
+
+      --radius-tile: 28px;
+      --radius-blob: 62% 38% 46% 54% / 53% 44% 56% 47%;
+      --gap: 18px;
+      --maxw: 1180px;
+
+      --ease-out: cubic-bezier(.2,.7,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--grotesk);
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--newsprint);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Earthy paper grain over everything */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+      opacity: .22;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+
+    ::selection { background: var(--crimson); color: var(--paper); }
+
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    .skip-link {
+      position: absolute; left: 12px; top: -60px;
+      background: var(--charcoal); color: var(--paper);
+      padding: 10px 16px; border-radius: 10px; z-index: 200;
+      font-weight: 600; text-decoration: none;
+    }
+    .skip-link:focus { top: 12px; }
+
+    :focus-visible {
+      outline: 3px solid var(--crimson);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    /* ------------------------------------------------------------------
+       Background blobs
+    ------------------------------------------------------------------ */
+    .blobs {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .blob {
+      position: absolute;
+      border-radius: var(--radius-blob);
+      filter: blur(60px);
+      opacity: .55;
+      animation: drift 26s ease-in-out infinite alternate;
+    }
+    .blob--a { width: 46vw; height: 46vw; top: -12vw; left: -14vw; background: var(--crimson); opacity: .28; }
+    .blob--b { width: 38vw; height: 38vw; top: 30vh; right: -16vw; background: var(--charcoal); opacity: .22; animation-delay: -9s; animation-duration: 32s; }
+    .blob--c { width: 30vw; height: 30vw; bottom: -10vw; left: 22vw; background: var(--moss); opacity: .25; animation-delay: -17s; animation-duration: 38s; }
+    @keyframes drift {
+      from { transform: translate3d(0,0,0) rotate(0deg) scale(1); }
+      to   { transform: translate3d(4vw,3vh,0) rotate(18deg) scale(1.08); }
+    }
+
+    /* ------------------------------------------------------------------
+       Layout primitives
+    ------------------------------------------------------------------ */
+    .wrap { width: min(var(--maxw), calc(100% - 40px)); margin: 0 auto; position: relative; z-index: 1; }
+
+    section { padding: 88px 0; position: relative; }
+    @media (max-width: 720px) { section { padding: 64px 0; } }
+
+    .eyebrow {
+      font-family: var(--grotesk);
+      font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+      font-weight: 600; color: var(--crimson);
+      display: inline-flex; align-items: center; gap: 10px;
+    }
+    .eyebrow::before {
+      content: ""; width: 26px; height: 2px; background: currentColor; border-radius: 2px;
+    }
+
+    h1, h2, h3 { font-family: var(--slab); line-height: 1.05; margin: 0; letter-spacing: -.01em; }
+    h2 { font-size: clamp(34px, 4.6vw, 54px); font-weight: 700; }
+    h3 { font-size: clamp(22px, 2.4vw, 28px); font-weight: 700; }
+    p { margin: 0; }
+    .lede { font-size: clamp(17px, 1.5vw, 20px); color: var(--muted); max-width: 60ch; }
+
+    .section-head { display: grid; gap: 14px; margin-bottom: 40px; max-width: 760px; }
+
+    /* Bento grid */
+    .bento {
+      display: grid;
+      gap: var(--gap);
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .tile {
+      position: relative;
+      background: var(--paper);
+      border-radius: var(--radius-tile);
+      padding: 34px;
+      border: 1px solid rgba(28,28,31,.08);
+      box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -28px rgba(28,28,31,.35);
+      overflow: hidden;
+      display: flex; flex-direction: column; justify-content: space-between; gap: 18px;
+      transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out);
+    }
+    .tile:hover { transform: translateY(-4px); box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 30px 50px -30px rgba(28,28,31,.45); }
+    .tile--dark { background: var(--charcoal); color: var(--paper); border-color: rgba(255,255,255,.06); }
+    .tile--dark .lede, .tile--dark .muted { color: rgba(242,239,232,.7); }
+    .tile--crimson { background: var(--crimson); color: var(--paper); border-color: rgba(255,255,255,.08); }
+    .tile--crimson .muted { color: rgba(242,239,232,.78); }
+    .tile--grey { background: var(--newsprint-dark); }
+    .muted { color: var(--muted); }
+
+    /* Botanical accent — thin branch drawn in the corner of some tiles */
+    .leaf {
+      position: absolute; width: 190px; height: 190px; right: -30px; bottom: -40px;
+      opacity: .16; pointer-events: none;
+    }
+    .tile--dark .leaf, .tile--crimson .leaf { opacity: .22; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--grotesk); font-weight: 600; font-size: 15px;
+      padding: 14px 22px; border-radius: 999px; text-decoration: none;
+      border: 1.5px solid transparent; cursor: pointer;
+      transition: transform .25s var(--ease-out), background .25s, color .25s, border-color .25s;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn--primary { background: var(--crimson); color: var(--paper); }
+    .btn--primary:hover { background: var(--crimson-deep); }
+    .btn--ghost { background: transparent; color: var(--ink); border-color: rgba(28,28,31,.25); }
+    .btn--ghost:hover { border-color: var(--ink); }
+    .btn--light { background: var(--paper); color: var(--charcoal); }
+    .btn--light:hover { background: #fff; }
+    .btn svg { width: 16px; height: 16px; flex: none; }
+
+    /* ------------------------------------------------------------------
+       Header
+    ------------------------------------------------------------------ */
+    .header {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: blur(14px) saturate(1.2);
+      -webkit-backdrop-filter: blur(14px) saturate(1.2);
+      background: rgba(230,226,217,.72);
+      border-bottom: 1px solid rgba(28,28,31,.08);
+    }
+    .header .wrap {
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      height: 74px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand img {
+      width: 42px; height: 42px; object-fit: cover;
+      border-radius: var(--radius-blob);
+      border: 2px solid var(--paper);
+      box-shadow: 0 6px 16px -8px rgba(28,28,31,.5);
+    }
+    .brand__name { font-family: var(--slab); font-weight: 700; font-size: 22px; letter-spacing: -.01em; }
+    .brand__ticker { font-size: 12px; color: var(--crimson); font-weight: 600; letter-spacing: .06em; display: block; line-height: 1; margin-top: 2px; }
+
+    .nav { display: flex; align-items: center; gap: 6px; }
+    .nav a:not(.btn) {
+      text-decoration: none; font-weight: 500; font-size: 15px; padding: 10px 14px; border-radius: 999px;
+      color: var(--ink); transition: background .2s;
+    }
+    .nav a:not(.btn):hover { background: rgba(28,28,31,.06); }
+    .nav .btn { padding: 10px 18px; font-size: 14px; margin-left: 8px; }
+    .nav__icon { display: inline-flex; padding: 10px !important; }
+    .nav__icon svg { width: 18px; height: 18px; }
+
+    .menu-btn {
+      display: none; background: none; border: 1.5px solid rgba(28,28,31,.2); border-radius: 999px;
+      width: 44px; height: 44px; align-items: center; justify-content: center; cursor: pointer; color: var(--ink);
+    }
+    .menu-btn svg { width: 20px; height: 20px; }
+
+    @media (max-width: 860px) {
+      .menu-btn { display: inline-flex; }
+      .nav {
+        position: absolute; top: 74px; left: 0; right: 0;
+        flex-direction: column; align-items: stretch; gap: 4px;
+        padding: 14px 20px 20px; background: var(--newsprint);
+        border-bottom: 1px solid rgba(28,28,31,.08);
+        transform-origin: top; transform: scaleY(.96); opacity: 0; pointer-events: none;
+        transition: transform .25s var(--ease-out), opacity .25s;
+      }
+      .nav.is-open { transform: none; opacity: 1; pointer-events: auto; }
+      .nav a:not(.btn) { padding: 12px 14px; }
+      .nav .btn { margin: 8px 0 0; justify-content: center; }
+      .nav__icon { justify-content: flex-start !important; gap: 10px; }
+      .nav__icon::after { content: attr(data-label); font-size: 15px; font-weight: 500; }
+    }
+
+    /* ------------------------------------------------------------------
+       Hero
+    ------------------------------------------------------------------ */
+    .hero { padding-top: 56px; padding-bottom: 60px; }
+    .hero .bento { grid-auto-rows: minmax(150px, auto); }
+
+    .hero__main { grid-column: span 7; grid-row: span 2; min-height: 420px; padding: 44px; }
+    .hero__logo { grid-column: span 5; grid-row: span 2; padding: 0; align-items: center; justify-content: center; }
+    .hero__chain { grid-column: span 4; }
+    .hero__launch { grid-column: span 5; }
+    .hero__ticker { grid-column: span 3; }
+
+    .hero__title {
+      font-size: clamp(46px, 7vw, 94px);
+      font-weight: 700; line-height: .95; letter-spacing: -.025em;
+      word-break: break-word;
+    }
+    .hero__title em { font-style: italic; font-weight: 400; color: var(--crimson); }
+    .hero__pitch { font-size: clamp(18px, 1.7vw, 22px); color: var(--muted); max-width: 46ch; margin-top: 18px; }
+    .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+
+    .hero__logo-wrap {
+      position: relative; width: 100%; height: 100%; min-height: 320px;
+      display: grid; place-items: center;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(163,35,43,.18), transparent 55%),
+        radial-gradient(circle at 75% 80%, rgba(111,122,92,.25), transparent 55%),
+        var(--newsprint-dark);
+    }
+    .hero__logo-blob {
+      position: absolute; width: 74%; aspect-ratio: 1; background: var(--crimson);
+      border-radius: var(--radius-blob); opacity: .9;
+      animation: morph 14s ease-in-out infinite;
+    }
+    .hero__logo-blob--2 {
+      width: 66%; background: var(--charcoal); opacity: .95; animation-delay: -5s; animation-direction: reverse;
+    }
+    .hero__logo img {
+      position: relative; width: 48%; max-width: 240px; aspect-ratio: 1; object-fit: cover;
+      border-radius: 50%; border: 6px solid var(--paper);
+      box-shadow: 0 30px 60px -20px rgba(23,23,27,.6);
+      animation: float 7s ease-in-out infinite;
+    }
+    @keyframes morph {
+      0%, 100% { border-radius: 62% 38% 46% 54% / 53% 44% 56% 47%; transform: rotate(0deg); }
+      33%       { border-radius: 44% 56% 58% 42% / 42% 58% 42% 58%; transform: rotate(8deg); }
+      66%       { border-radius: 56% 44% 38% 62% / 60% 40% 60% 40%; transform: rotate(-6deg); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .stat { display: grid; gap: 6px; }
+    .stat__label { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; font-weight: 600; opacity: .7; }
+    .stat__value { font-family: var(--slab); font-size: clamp(26px, 2.6vw, 34px); font-weight: 700; line-height: 1.1; }
+    .stat__value small { display: block; font-family: var(--grotesk); font-weight: 500; font-size: 14px; opacity: .75; margin-top: 4px; line-height: 1.4; }
+
+    .ticker-chip {
+      font-family: var(--slab); font-weight: 700; font-size: clamp(20px, 1.8vw, 24px);
+      word-break: break-all; line-height: 1.1;
+    }
+
+    /* Marquee strip */
+    .strip {
+      position: relative; z-index: 1;
+      background: var(--charcoal); color: var(--paper);
+      overflow: hidden; white-space: nowrap;
+      border-top: 1px solid rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.06);
+      transform: rotate(-1deg) scale(1.02);
+      margin: 10px 0 -10px;
+    }
+    .strip__track {
+      display: inline-flex; gap: 0; padding: 14px 0;
+      animation: marquee 32s linear infinite;
+    }
+    .strip__item {
+      font-family: var(--slab); font-size: 18px; font-weight: 600; letter-spacing: .02em;
+      padding: 0 26px; display: inline-flex; align-items: center; gap: 26px;
+    }
+    .strip__item::after { content: "✦"; color: var(--crimson-soft); font-size: 14px; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ------------------------------------------------------------------
+       About
+    ------------------------------------------------------------------ */
+    .about__desc { grid-column: span 7; grid-row: span 2; min-height: 340px; }
+    .about__quote {
+      font-family: var(--slab); font-size: clamp(30px, 4vw, 52px); font-weight: 400; font-style: italic;
+      line-height: 1.05; color: var(--charcoal); letter-spacing: -.02em;
+    }
+    .about__quote strong { font-style: normal; font-weight: 700; color: var(--crimson); }
+    .about__chain { grid-column: span 5; }
+    .about__stonks { grid-column: span 5; }
+    .about__open { grid-column: span 4; }
+    .about__ticker { grid-column: span 4; }
+    .about__site { grid-column: span 4; }
+
+    .tile__icon {
+      width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center;
+      background: rgba(28,28,31,.06); color: var(--crimson); flex: none;
+    }
+    .tile--dark .tile__icon { background: rgba(255,255,255,.08); color: var(--paper); }
+    .tile--crimson .tile__icon { background: rgba(255,255,255,.14); color: var(--paper); }
+    .tile__icon svg { width: 22px; height: 22px; }
+
+    .tile__link {
+      display: inline-flex; align-items: center; gap: 8px; font-weight: 600; text-decoration: none;
+      color: var(--crimson); margin-top: 6px;
+    }
+    .tile--dark .tile__link, .tile--crimson .tile__link { color: var(--paper); }
+    .tile__link svg { width: 16px; height: 16px; transition: transform .25s var(--ease-out); }
+    .tile__link:hover svg { transform: translate(3px, -3px); }
+    .tile__link span { word-break: break-all; }
+
+    /* ------------------------------------------------------------------
+       How to buy
+    ------------------------------------------------------------------ */
+    .buy { }
+    .buy .bento { grid-auto-rows: minmax(190px, auto); }
+    .step { grid-column: span 4; }
+    .step--wide { grid-column: span 8; }
+    .step--tall { grid-row: span 2; }
+    .step__num {
+      font-family: var(--slab); font-weight: 700; font-size: 64px; line-height: 1;
+      color: var(--crimson); opacity: .9;
+    }
+    .tile--dark .step__num { color: var(--crimson-soft); }
+    .tile--crimson .step__num { color: rgba(242,239,232,.9); }
+    .step h3 { margin-top: 8px; }
+    .step p { margin-top: 8px; }
+    .step ul { margin: 12px 0 0; padding-left: 18px; }
+    .step li { margin: 6px 0; }
+
+    /* ------------------------------------------------------------------
+       Links
+    ------------------------------------------------------------------ */
+    .links .bento { grid-auto-rows: minmax(170px, auto); }
+    .link-tile { text-decoration: none; color: inherit; }
+    .link-tile:hover .tile__link svg { transform: translate(3px,-3px); }
+    .link-tile--site { grid-column: span 5; }
+    .link-tile--gh { grid-column: span 4; }
+    .link-tile--stonks { grid-column: span 3; }
+    .link-tile .url { font-size: 13px; opacity: .7; word-break: break-all; margin-top: 4px; font-family: var(--grotesk); }
+
+    /* ------------------------------------------------------------------
+       Footer CTA + footer
+    ------------------------------------------------------------------ */
+    .cta { padding-bottom: 40px; }
+    .cta__tile {
+      background: var(--charcoal); color: var(--paper);
+      border-radius: 36px; padding: clamp(36px, 5vw, 72px);
+      position: relative; overflow: hidden;
+      display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center;
+    }
+    .cta__tile::before {
+      content: ""; position: absolute; width: 520px; height: 520px; right: -180px; top: -180px;
+      background: var(--crimson); border-radius: var(--radius-blob); opacity: .85;
+      animation: morph 18s ease-in-out infinite; filter: blur(2px);
+    }
+    .cta__tile::after {
+      content: ""; position: absolute; width: 260px; height: 260px; left: -100px; bottom: -120px;
+      background: var(--moss); border-radius: var(--radius-blob); opacity: .5;
+      animation: morph 22s ease-in-out infinite reverse;
+    }
+    .cta__body { position: relative; z-index: 1; display: grid; gap: 18px; }
+    .cta__body h2 { font-size: clamp(34px, 4.6vw, 60px); }
+    .cta__body h2 em { font-style: italic; font-weight: 400; color: var(--crimson-soft); }
+    .cta__body p { color: rgba(242,239,232,.75); max-width: 50ch; }
+    .cta__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+    .cta__links { position: relative; z-index: 1; display: grid; gap: 12px; }
+    .cta__link {
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      background: rgba(242,239,232,.08); border: 1px solid rgba(242,239,232,.14);
+      padding: 16px 20px; border-radius: 18px; text-decoration: none; color: var(--paper);
+      transition: background .25s, transform .25s var(--ease-out);
+    }
+    .cta__link:hover { background: rgba(242,239,232,.16); transform: translateX(4px); }
+    .cta__link strong { display: block; font-family: var(--slab); font-size: 18px; }
+    .cta__link span { display: block; font-size: 13px; opacity: .7; word-break: break-all; }
+    .cta__link svg { width: 18px; height: 18px; flex: none; }
+
+    .footer { position: relative; z-index: 1; padding: 30px 0 46px; }
+    .footer .wrap {
+      display: flex; flex-wrap: wrap; gap: 18px 30px; align-items: center; justify-content: space-between;
+      border-top: 1px solid rgba(28,28,31,.12); padding-top: 26px;
+    }
+    .footer__brand { display: flex; align-items: center; gap: 10px; }
+    .footer__brand img { width: 30px; height: 30px; border-radius: var(--radius-blob); object-fit: cover; }
+    .footer__brand b { font-family: var(--slab); font-size: 18px; }
+    .footer__nav { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 14px; }
+    .footer__nav a { text-decoration: none; color: var(--muted); }
+    .footer__nav a:hover { color: var(--crimson); }
+    .footer__note { width: 100%; font-size: 13px; color: var(--muted); max-width: 70ch; }
+
+    /* ------------------------------------------------------------------
+       Scroll reveals (staggered)
+    ------------------------------------------------------------------ */
+    .reveal {
+      opacity: 0; transform: translateY(26px) scale(.985);
+      transition: opacity .8s var(--ease-out), transform .8s var(--ease-out);
+      transition-delay: calc(var(--i, 0) * 90ms);
+      will-change: opacity, transform;
+    }
+    .reveal.is-in { opacity: 1; transform: none; }
+    .reveal.is-in:hover { transform: translateY(-4px); }
+    .no-js .reveal { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .blob, .hero__logo-blob, .hero__logo img, .strip__track, .cta__tile::before, .cta__tile::after { animation: none !important; }
+      .tile, .btn, .cta__link { transition: none; }
+    }
+
+    /* ------------------------------------------------------------------
+       Responsive bento collapse
+    ------------------------------------------------------------------ */
+    @media (max-width: 980px) {
+      .hero__main { grid-column: span 12; min-height: 0; }
+      .hero__logo { grid-column: span 12; grid-row: span 1; }
+      .hero__logo-wrap { min-height: 300px; }
+      .hero__chain { grid-column: span 6; }
+      .hero__launch { grid-column: span 6; }
+      .hero__ticker { grid-column: span 12; }
+
+      .about__desc { grid-column: span 12; min-height: 0; }
+      .about__chain, .about__stonks { grid-column: span 6; }
+      .about__open, .about__ticker, .about__site { grid-column: span 12; }
+
+      .step, .step--wide { grid-column: span 6; }
+      .step--tall { grid-row: span 1; }
+
+      .link-tile--site, .link-tile--gh, .link-tile--stonks { grid-column: span 12; }
+
+      .cta__tile { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      .tile { padding: 26px; }
+      .hero__main { padding: 30px 26px; }
+      .hero__chain, .hero__launch, .about__chain, .about__stonks, .step, .step--wide { grid-column: span 12; }
+      .strip { transform: none; margin: 0; }
+    }
+  </style>
+</head>
+<body class="no-js">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Ambient blobs -->
+  <div class="blobs" aria-hidden="true">
+    <div class="blob blob--a"></div>
+    <div class="blob blob--b"></div>
+    <div class="blob blob--c"></div>
+  </div>
+
+  <!-- Botanical SVG symbol reused in tiles -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="branch" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 190 C 60 150, 90 110, 150 30"/>
+      <path d="M62 138 c -30 -6 -46 -26 -44 -52 c 26 0 44 18 44 52z"/>
+      <path d="M92 104 c -8 -30 4 -52 28 -62 c 8 26 -4 50 -28 62z"/>
+      <path d="M118 72 c -28 -10 -40 -34 -34 -58 c 26 4 40 28 34 58z"/>
+      <path d="M78 122 c 30 6 46 26 44 52 c -26 0 -44 -18 -44 -52z"/>
+      <path d="M140 42 c 24 -12 46 -8 60 10 c -20 16 -44 12 -60 -10z"/>
+    </symbol>
+    <symbol id="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M7 17 17 7M8 7h9v9"/>
+    </symbol>
+    <symbol id="github" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+    </symbol>
+  </svg>
+
+  <!-- ============================== HEADER ============================== -->
+  <header class="header">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="testwifimg2 home">
+        <img src="https://img.stonks.cash/e26cb8d4-2804-4537-9233-ee0ed8d81a12.png" alt="testwifimg2 logo" width="42" height="42" />
+        <span>
+          <span class="brand__name">testwifimg2</span>
+          <span class="brand__ticker">$testwifimg2</span>
+        </span>
+      </a>
+
+      <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+
+      <nav class="nav" id="nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#buy">How to buy</a>
+        <a href="#links">Links</a>
+        <a class="nav__icon" href="https://stonks-managed-repo.github.io/app-136-testwifimg-bh17/" target="_blank" rel="noopener" aria-label="Official website" data-label="Website">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>
+        </a>
+        <a class="nav__icon" href="https://github.com/app-136/testwifimg-bh17" target="_blank" rel="noopener" aria-label="GitHub repository" data-label="GitHub">
+          <svg><use href="#github"/></svg>
+        </a>
+        <a class="btn btn--primary" href="https://app.stonks.cash" target="_blank" rel="noopener">Buy on Stonks <svg><use href="#arrow"/></svg></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============================== HERO ============================== -->
+    <section class="hero" id="top">
+      <div class="wrap">
+        <div class="bento">
+          <div class="tile hero__main reveal" style="--i:0">
+            <div>
+              <span class="eyebrow">Token on TON · launched on Stonks</span>
+              <h1 class="hero__title" style="margin-top:18px">testwifimg2<br><em>$testwifimg2</em></h1>
+              <p class="hero__pitch">testwifimg — a token growing on the TON blockchain, sprouted on Stonks and open to anyone with a TON wallet.</p>
+            </div>
+            <div class="hero__actions">
+              <a class="btn btn--primary" href="https://app.stonks.cash" target="_blank" rel="noopener">Buy on Stonks <svg><use href="#arrow"/></svg></a>
+              <a class="btn btn--ghost" href="#about">Read about the token</a>
+            </div>
+            <svg class="leaf" aria-hidden="true"><use href="#branch"/></svg>
+          </div>
+
+          <div class="tile hero__logo reveal" style="--i:1">
+            <div class="hero__logo-wrap">
+              <div class="hero__logo-blob" aria-hidden="true"></div>
+              <div class="hero__logo-blob hero__logo-blob--2" aria-hidden="true"></div>
+              <img src="https://img.stonks.cash/e26cb8d4-2804-4537-9233-ee0ed8d81a12.png" alt="testwifimg2 token logo" width="240" height="240" />
+            </div>
+          </div>
+
+          <div class="tile tile--dark hero__chain reveal" style="--i:2">
+            <div class="stat">
+              <span class="stat__label">Blockchain</span>
+              <span class="stat__value">TON<small>The Open Network — fast, low-fee, native to Telegram wallets.</small></span>
+            </div>
+            <svg class="leaf" aria-hidden="true"><use href="#branch"/></svg>
+          </div>
+
+          <div class="tile tile--grey hero__launch reveal" style="--i:3">
+            <div class="stat">
+              <span class="stat__label">Launched on</span>
+              <span class="stat__value">Stonks<small>app.stonks.cash — where $testwifimg2 was born and where it trades.</small></span>
+            </div>
+            <a class="tile__link" href="https://app.stonks.cash" target="_blank" rel="noopener"><span>Open Stonks</span> <svg><use href="#arrow"/></svg></a>
+          </div>
+
+          <div class="tile tile--crimson hero__ticker reveal" style="--i:4">
+            <span class="stat__label">Ticker</span>
+            <span class="ticker-chip">$testwifimg2</span>
+            <p class="muted" style="font-size:14px">Check the ticker before you buy.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Marquee strip -->
+    <div class="strip" aria-hidden="true">
+      <div class="strip__track">
+        <span class="strip__item">testwifimg2</span>
+        <span class="strip__item">$testwifimg2</span>
+        <span class="strip__item">on TON</span>
+        <span class="strip__item">launched on Stonks</span>
+        <span class="strip__item">testwifimg</span>
+        <span class="strip__item">testwifimg2</span>
+        <span class="strip__item">$testwifimg2</span>
+        <span class="strip__item">on TON</span>
+        <span class="strip__item">launched on Stonks</span>
+        <span class="strip__item">testwifimg</span>
+      </div>
+    </div>
+
+    <!-- ============================== ABOUT ============================== -->
+    <section class="about" id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow reveal" style="--i:0">About</span>
+          <h2 class="reveal" style="--i:1">What testwifimg2 is</h2>
+          <p class="lede reveal" style="--i:2">No jargon, no promises — just what is actually known about the token.</p>
+        </div>
+
+        <div class="bento">
+          <div class="tile about__desc reveal" style="--i:0">
+            <p class="about__quote">“<strong>testwifimg</strong>” — that is the whole description, and it says what it needs to.</p>
+            <p class="muted">testwifimg2 is a token that lives on the TON blockchain under the ticker <strong>$testwifimg2</strong>. It was launched on Stonks, and everything about it — the code, the website, the trading venue — is out in the open through the links on this page.</p>
+            <svg class="leaf" aria-hidden="true"><use href="#branch"/></svg>
+          </div>
+
+          <div class="tile tile--dark about__chain reveal" style="--i:1">
+            <div class="tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21 3 6h18z"/><path d="M12 21V6"/></svg>
+            </div>
+            <div>
+              <h3>Rooted in TON</h3>
+              <p class="muted" style="margin-top:8px">A TON-native token: held in a TON wallet, traded with TON or GRAM, and settled on The Open Network.</p>
+            </div>
+          </div>
+
+          <div class="tile about__stonks reveal" style="--i:2">
+            <div class="tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17 9 11l4 4 8-8"/><path d="M15 7h6v6"/></svg>
+            </div>
+            <div>
+              <h3>Sprouted on Stonks</h3>
+              <p class="muted" style="margin-top:8px">The token was launched on Stonks, the TON launchpad at app.stonks.cash — which is also where you buy it.</p>
+            </div>
+            <a class="tile__link" href="https://app.stonks.cash" target="_blank" rel="noopener"><span>app.stonks.cash</span> <svg><use href="#arrow"/></svg></a>
+          </div>
+
+          <div class="tile tile--grey about__open reveal" style="--i:3">
+            <div class="tile__icon" aria-hidden="true"><svg><use href="#github"/></svg></div>
+            <div>
+              <h3>Open on GitHub</h3>
+              <p class="muted" style="margin-top:8px">The project's source is public. Read it, fork it, file an issue.</p>
+            </div>
+            <a class="tile__link" href="https://github.com/app-136/testwifimg-bh17" target="_blank" rel="noopener"><span>app-136/testwifimg-bh17</span> <svg><use href="#arrow"/></svg></a>
+          </div>
+
+          <div class="tile tile--crimson about__ticker reveal" style="--i:4">
+            <span class="stat__label">Name · Ticker</span>
+            <div>
+              <h3>testwifimg2</h3>
+              <p class="ticker-chip" style="margin-top:6px">$testwifimg2</p>
+            </div>
+            <p class="muted" style="font-size:14px">Same name, same ticker — the "2" is part of both.</p>
+            <svg class="leaf" aria-hidden="true"><use href="#branch"/></svg>
+          </div>
+
+          <div class="tile about__site reveal" style="--i:5">
+            <div class="tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>
+            </div>
+            <div>
+              <h3>Official website</h3>
+              <p class="muted" style="margin-top:8px">The canonical home of testwifimg2 on the web.</p>
+            </div>
+            <a class="tile__link" href="https://stonks-managed-repo.github.io/app-136-testwifimg-bh17/" target="_blank" rel="noopener"><span>stonks-managed-repo.github.io/app-136-testwifimg-bh17</span> <svg><use href="#arrow"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== HOW TO BUY ============================== -->
+    <section class="buy" id="buy">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow reveal" style="--i:0">How to buy</span>
+          <h2 class="reveal" style="--i:1">Three steps, one wallet</h2>
+          <p class="lede reveal" style="--i:2">Get some TON or GRAM into a TON wallet, open Stonks, and swap. That's the whole path.</p>
+        </div>
+
+        <div class="bento">
+          <div class="tile step step--tall reveal" style="--i:0">
+            <span class="step__num" aria-hidden="true">01</span>
+            <div>
+              <h3>Set up a TON wallet</h3>
+              <p class="muted">Install a wallet that supports the TON blockchain — for example Tonkeeper, MyTonWallet, or the Wallet built into Telegram. Write your recovery phrase down offline and never share it.</p>
+            </div>
+            <svg class="leaf" aria-hidden="true"><use href="#branch"/></svg>
+          </div>
+
+          <div class="tile tile--dark step step--wide reveal" style="--i:1">
+            <span class="step__num" aria-hidden="true">02</span>
+            <div>
+              <h3>Fund it with TON or GRAM</h3>
+              <p class="muted">Buy TON on an exchange and withdraw it to your wallet address, or top up directly inside the wallet app. Stonks lets you trade with either <strong>TON</strong> or <strong>GRAM</strong>, so use whichever you hold.</p>
+              <ul class="muted">
+                <li>Keep a little extra TON for network fees.</li>
+                <li>Send a small test amount first if it's your first transfer.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tile tile--crimson step reveal" style="--i:2">
+            <span class="step__num" aria-hidden="true">03</span>
+            <div>
+              <h3>Buy on Stonks</h3>
+              <p class="muted">Go to app.stonks.cash, connect your wallet, find <strong>$testwifimg2</strong>, enter the amount and confirm the swap.</p>
+            </div>
+            <a class="btn btn--light" href="https://app.stonks.cash" target="_blank" rel="noopener">Open app.stonks.cash <svg><use href="#arrow"/></svg></a>
+          </div>
+
+          <div class="tile tile--grey step reveal" style="--i:3">
+            <div class="tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.4 3.4 8.2 8 9 4.6-.8 8-4.6 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <div>
+              <h3>Stay safe</h3>
+              <p class="muted" style="margin-top:8px">Only use the links on this page. Double-check the ticker <strong>$testwifimg2</strong> on Stonks before confirming, and never send funds to anyone who messages you first.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== LINKS ============================== -->
+    <section class="links" id="links">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow reveal" style="--i:0">Official links</span>
+          <h2 class="reveal" style="--i:1">Where to find testwifimg2</h2>
+        </div>
+
+        <div class="bento">
+          <a class="tile link-tile link-tile--site reveal" style="--i:0" href="https://stonks-managed-repo.github.io/app-136-testwifimg-bh17/" target="_blank" rel="noopener">
+            <div class="tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>
+            </div>
+            <div>
+              <h3>Website</h3>
+              <p class="url">stonks-managed-repo.github.io/app-136-testwifimg-bh17</p>
+            </div>
+            <span class="tile__link"><span>Visit site</span> <svg><use href="#arrow"/></svg></span>
+            <svg class="leaf" aria-hidden="true"><use href="#branch"/></svg>
+          </a>
+
+          <a class="tile tile--dark link-tile link-tile--gh reveal" style="--i:1" href="https://github.com/app-136/testwifimg-bh17" target="_blank" rel="noopener">
+            <div class="tile__icon" aria-hidden="true"><svg><use href="#github"/></svg></div>
+            <div>
+              <h3>GitHub</h3>
+              <p class="url">github.com/app-136/testwifimg-bh17</p>
+            </div>
+            <span class="tile__link"><span>View repository</span> <svg><use href="#arrow"/></svg></span>
+          </a>
+
+          <a class="tile tile--crimson link-tile link-tile--stonks reveal" style="--i:2" href="https://app.stonks.cash" target="_blank" rel="noopener">
+            <div class="tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17 9 11l4 4 8-8"/><path d="M15 7h6v6"/></svg>
+            </div>
+            <div>
+              <h3>Stonks</h3>
+              <p class="url">app.stonks.cash</p>
+            </div>
+            <span class="tile__link"><span>Trade</span> <svg><use href="#arrow"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== FOOTER CTA ============================== -->
+    <section class="cta">
+      <div class="wrap">
+        <div class="cta__tile reveal" style="--i:0">
+          <div class="cta__body">
+            <span class="eyebrow" style="color:var(--crimson-soft)">Ready when you are</span>
+            <h2>Plant a little <em>$testwifimg2</em> in your wallet.</h2>
+            <p>testwifimg is live on TON and trading on Stonks. Fund a TON wallet, open the app, and swap.</p>
+            <div class="cta__actions">
+              <a class="btn btn--primary" href="https://app.stonks.cash" target="_blank" rel="noopener">Buy on Stonks <svg><use href="#arrow"/></svg></a>
+              <a class="btn btn--light" href="#buy">How it works</a>
+            </div>
+          </div>
+          <div class="cta__links">
+            <a class="cta__link" href="https://stonks-managed-repo.github.io/app-136-testwifimg-bh17/" target="_blank" rel="noopener">
+              <div><strong>Official website</strong><span>stonks-managed-repo.github.io/app-136-testwifimg-bh17</span></div>
+              <svg><use href="#arrow"/></svg>
+            </a>
+            <a class="cta__link" href="https://github.com/app-136/testwifimg-bh17" target="_blank" rel="noopener">
+              <div><strong>GitHub</strong><span>github.com/app-136/testwifimg-bh17</span></div>
+              <svg><use href="#arrow"/></svg>
+            </a>
+            <a class="cta__link" href="https://app.stonks.cash" target="_blank" rel="noopener">
+              <div><strong>Stonks</strong><span>app.stonks.cash</span></div>
+              <svg><use href="#arrow"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================== FOOTER ============================== -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__brand">
+        <img src="https://img.stonks.cash/e26cb8d4-2804-4537-9233-ee0ed8d81a12.png" alt="" width="30" height="30" />
+        <b>testwifimg2</b> <span class="muted" style="font-size:14px">· $testwifimg2 on TON</span>
+      </div>
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="#about">About</a>
+        <a href="#buy">How to buy</a>
+        <a href="https://stonks-managed-repo.github.io/app-136-testwifimg-bh17/" target="_blank" rel="noopener">Website</a>
+        <a href="https://github.com/app-136/testwifimg-bh17" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://app.stonks.cash" target="_blank" rel="noopener">Stonks</a>
+      </nav>
+      <p class="footer__note">© <span id="year"></span> testwifimg2. Launched on Stonks on the TON blockchain. Nothing on this page is financial advice; crypto assets are volatile — only spend what you can afford to lose.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      document.body.classList.remove('no-js');
+
+      // Footer year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Mobile menu
+      var btn = document.querySelector('.menu-btn');
+      var nav = document.getElementById('nav');
+      if (btn && nav) {
+        btn.addEventListener('click', function () {
+          var open = nav.classList.toggle('is-open');
+          btn.setAttribute('aria-expanded', String(open));
+          btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        });
+        nav.querySelectorAll('a').forEach(function (a) {
+          a.addEventListener('click', function () {
+            nav.classList.remove('is-open');
+            btn.setAttribute('aria-expanded', 'false');
+          });
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+            nav.classList.remove('is-open');
+            btn.setAttribute('aria-expanded', 'false');
+            btn.focus();
+          }
+        });
+      }
+
+      // Scroll-triggered staggered reveals
+      var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!('IntersectionObserver' in window) || reduce) {
+        reveals.forEach(function (el) { el.classList.add('is-in'); });
+        return;
+      }
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          // Stagger siblings that enter together: use their --i index (set in markup),
+          // falling back to order within the parent grid.
+          if (!el.style.getPropertyValue('--i')) {
+            var siblings = Array.prototype.slice.call(el.parentNode.children);
+            el.style.setProperty('--i', siblings.indexOf(el) % 8);
+          }
+          el.classList.add('is-in');
+          io.unobserve(el);
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+
+      reveals.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+</body>
+</html>
